@@ -1,4 +1,5 @@
 import { getRandomBoolean, getRandomInt } from "../utils/Random";
+import { createSquareMatrix } from "../utils/Utils";
 
 /**
  * Model of the sea battle game field
@@ -15,22 +16,10 @@ class ShipField {
     ])
 
     constructor() {
-        this.shipCells = ShipField.#createCellsArray();
-        this.shootsCells = ShipField.#createCellsArray();
+        this.shipCells = createSquareMatrix(10, false);
         this.#createShips();
     }
-
-    /**
-     * Creates empty 10x10 two-dimensional array, filled with false value 
-     */
-    static #createCellsArray() {
-        let rows = Array(10);
-        for (let i = 0; i < rows.length; i++) {
-            rows[i] = Array(10).fill(false);
-        }
-        return rows;
-    }
-
+    
     #createShips() {
         ShipField.ships.forEach((ship) => {
             for (let i = 0; i < ship.amount; i++) {
@@ -96,8 +85,6 @@ class ShipField {
         }
         return this.shipCells[x][y];
     }
-
-    shoot(x, y) {
-        this.shootsCells[x][y] = true;
-    }
 }
+
+export default ShipField;
