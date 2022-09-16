@@ -8,21 +8,30 @@ import { getShootCoordinates } from "../models/EnemyAi";
  * @param {*} props - expects playerName and enemyName strings
  */
 function Game(props) {
-    const [playerField, shootPlayer] = useGameField();
-    const [enemyField, shootEnemy] = useGameField();
+    const playerField = useGameField();
+    const enemyField = useGameField();
+
+    if (playerField.shipsAlive === 0) {
+        return <div> Вы проиграли </div>
+    }
+
+    if (enemyField.shipsAlive === 0) {
+        return <div> Вы выиграли </div>
+    }
 
     const onPlayerShoot = (x, y) => {
-        shootEnemy(x, y);
-        let enemyShot = getShootCoordinates(playerField);
-        shootPlayer(enemyShot.x, enemyShot.y);
+        enemyField.shoot(x, y);
+        let enemyShot = getShootCoordinates(playerField.gameInfo);
+        playerField.shoot(enemyShot.x, enemyShot.y);
     }
 
     return (
         <div>
-            {props.playerName} vs. {props.enemyName}
+            <div> {props.playerName} vs. {props.enemyName} </div>
+            <div> {playerField.shipsAlive} {enemyField.shipsAlive} </div>
             <div className="fields-list">
-                <GameField field={playerField} cellsHidden={false}/>
-                <GameField field={enemyField} onClick={onPlayerShoot} cellsHidden={true}/>
+                <GameField field={playerField.gameInfo} cellsHidden={false}/>
+                <GameField field={enemyField.gameInfo} onClick={onPlayerShoot} cellsHidden={true}/>
             </div>
         </div>
     )
