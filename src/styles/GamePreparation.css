@@ -1,0 +1,96 @@
+.game-preparation {
+    background-image: linear-gradient(25deg, #282828 50%, #EBF2FA 50.1%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.preparation-block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.preparation-block input {
+    min-width: 40%;
+    height: 40px;
+    font: inherit;
+    font-size: 30px;
+    margin: 50px;
+}
+
+.preparation-block div {
+    margin: 0px 50px;
+    font-size: 50px;
+}
+
+.upper-right {
+    justify-content: flex-start;
+    align-items: flex-end;
+    color: #282828;
+}
+
+.down-left {
+    justify-content: flex-end;
+    align-items: flex-start;
+    color: #EBF2FA;
+}
+
+
+.middle-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 75px;
+}
+
+.start-button {
+    background-color: #EE4266;
+    border: none;
+    padding: 30px;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+    border: 4px solid black;
+}
+
+.versus-label {
+    box-sizing: border-box;
+    padding: 30px;
+    width: 100%;
+    background-color: #EE4266;
+    animation: shrink 4s ease;
+    display: flex;
+    justify-content: space-evenly;
+    border: 4px solid black;
+}
+
+@keyframes shrink {
+    0% {
+        width: 100px;
+    }
+    100% {
+        width: 100vw;
+    }
+}
+
+.player-name {
+    max-width: 35%;
+    animation: fade-in 4s ease;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+@keyframes fade-in {
+    0% {
+        color: transparent;
+    }
+    50% {
+        color: transparent;
+    }
+    75% {
+        color: inherit;
+    }
+}

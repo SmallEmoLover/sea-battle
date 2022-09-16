@@ -9,13 +9,15 @@ function App() {
 
     const [isGameRunning, setGameRunning] = useState(false);
 
-    let content;
     if (isGameRunning) {
-        content = (
-            <Game playerName={playerName} enemyName={enemyName}/>
-        );
+        return (
+            <div className="App">
+                Морской бой
+                <Game playerName={playerName} enemyName={enemyName}/>
+            </div>
+        )
     } else {
-        content = (
+        return (
             <GamePreparation onPreparationsDone={(playerName, enemyName) => {
                 setPlayerName(playerName);
                 setEnemyName(enemyName);
@@ -23,12 +25,6 @@ function App() {
             }}/>
         );
     }
-
-    return (
-        <div className="App">
-            Морской бой
-            {content}
-        </div>
-  );
 }
+
 export default App;
