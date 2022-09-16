@@ -1,19 +1,33 @@
 import { useState } from 'react';
 import '../styles/App.css';
+import Game from './Game';
 import GamePreparation from './GamePreparation';
 
 function App() {
     const [playerName, setPlayerName] = useState('');
     const [enemyName, setEnemyName] = useState('');
 
-    return (
-        <div className="App">
-            Морской бой
+    const [isGameRunning, setGameRunning] = useState(false);
+
+    let content;
+    if (isGameRunning) {
+        content = (
+            <Game playerName={playerName} enemyName={enemyName}/>
+        );
+    } else {
+        content = (
             <GamePreparation onPreparationsDone={(playerName, enemyName) => {
                 setPlayerName(playerName);
                 setEnemyName(enemyName);
+                setGameRunning(true);
             }}/>
-            {playerName} vs {enemyName}
+        );
+    }
+
+    return (
+        <div className="App">
+            Морской бой
+            {content}
         </div>
   );
 }

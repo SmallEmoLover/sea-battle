@@ -10,3 +10,17 @@ export function createSquareMatrix(size, initial=null) {
     }
     return rows;
 }
+
+/**
+ * Creates copy of the specified matrix
+ * @param {*} matrix - two-dimensional array 
+ * @returns copy of the matrix
+ */
+ export function copyMatrix(matrix) {
+    let rows = Array(matrix.length);
+    for (let i = 0; i < rows.length; i++) {
+        rows[i] = [...matrix[i]];
+    }
+
+    return rows;
+}
