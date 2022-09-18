@@ -1,4 +1,15 @@
 .App {
-  text-align: center;
-  color: #282828;
+    text-align: center;
+    color: #282828;
+}
+
+button {
+    color: inherit;
+    background-color: #EE4266;
+    border: 2px solid black;
+    border-radius: 3px;
+    padding: 5px 20px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 15px;
 }

@@ -5,6 +5,7 @@ import { getShootCoordinates } from "../models/EnemyAi";
 import { useEffect, useState } from "react";
 import useInput from "../hooks/useInput";
 import GameEnd from "./GameEnd";
+import Help from "./Help";
 
 /**
  * React-component representing main game window
@@ -15,6 +16,7 @@ function Game(props) {
     const enemyField = useGameField();
     const [isPlayerTurn, setPlayerTurn] = useState(true);
     const AIThinkingCheckbox = useInput(true);
+    const [isHelpVisible, setHelpVisible] = useState(false);
 
     useEffect(() => {
         if (!isPlayerTurn) {
@@ -53,6 +55,7 @@ function Game(props) {
 
     return (
         <div className="game">
+            <Help visible={isHelpVisible} closeHelp={() => {setHelpVisible(false)}}/>
             <div className="information-panel">
                 <h1> {props.playerName} vs. {props.enemyName} </h1>
                 <div>
@@ -61,7 +64,7 @@ function Game(props) {
                 </div>
                 <div> Осталось клеток с кораблями: </div>
                 <div> {playerField.shipsAlive} : {enemyField.shipsAlive} </div>
-                
+                <button onClick={() => {setHelpVisible(true)}}> Справка </button>
             </div>
             <div className="fields-list">
                 <div>
