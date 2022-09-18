@@ -65,11 +65,12 @@ function Game(props) {
             </div>
             <div className="fields-list">
                 <div>
-                    <p className={isPlayerTurn ? 'active-turn' : ''}> {props.playerName} </p>
+                    {/* We check AIThinkingCheckbox to prevent enemy name flashing when AI makes a move */}
+                    <p className={(isPlayerTurn || !AIThinkingCheckbox.value) ? 'active-turn' : ''}> {props.playerName} </p>
                     <GameField field={playerField.gameInfo} cellsHidden={false}/>
                 </div>
                 <div>
-                    <p className={!isPlayerTurn ? 'active-turn' : ''}> {props.enemyName} </p>
+                    <p className={(!isPlayerTurn && AIThinkingCheckbox.value) ? 'active-turn' : ''}> {props.enemyName} </p>
                     <GameField field={enemyField.gameInfo} onClick={onPlayerShoot} cellsHidden={true}/>
                 </div>
             </div>
