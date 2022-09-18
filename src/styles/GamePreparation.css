@@ -74,6 +74,7 @@
 }
 
 .player-name {
+    max-width: 85%;
     animation: fade-in 4s ease;
     text-overflow: ellipsis;
     overflow: hidden;
