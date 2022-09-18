@@ -4,11 +4,11 @@ import { copyMatrix, createSquareMatrix } from "../utils/Utils";
 
 function useGameField() {
     const shipField = useRef(new ShipField());
-    const [shotsField, setShotsField] = useState(createSquareMatrix(10, false));
+    const [shotsField, setShotsField] = useState(createSquareMatrix(ShipField.FIELD_SIZE, false));
     const [shipsAlive, setShipsAlive] = useState(ShipField.ships.reduce(
         (alive, ship) => alive + ship.amount * ship.length,
         0
-        ))
+    ))
 
     /**
      * Shoots to specified coordinates
@@ -31,7 +31,7 @@ function useGameField() {
         return false;
     }
 
-    const gameInfo = createSquareMatrix(10, null);
+    const gameInfo = createSquareMatrix(ShipField.FIELD_SIZE, null);
     for (let i = 0; i < shotsField.length; i++) {
         for(let j = 0; j < shotsField[i].length; j++) {
             gameInfo[i][j] = {ship: shipField.current.shipCells[i][j], shot: shotsField[i][j]};
@@ -43,7 +43,7 @@ function useGameField() {
 }
 
 /**
- * Iterates over game field and finds sunken (all sibling cells damaged) ships
+ * Iterates over game field and finds sunken (all ship cells damaged) ships
  */
 function findSunkenShips(gameInfo) {
     for (let x = 0; x < gameInfo.length; x++) {
@@ -68,13 +68,14 @@ function findSunkenShips(gameInfo) {
 }
 
 /**
- * Checks sunken cells, finding siblings by specified function
+ * Checks sunken cells, finding next ship cells by specified function
  * @param {*} nextCell(x, y) => {x, y} function to generate next cell to check
- * @returns 
+ * @returns true, if all cells found by function are damaged
  */
 function checkSunkenCells(x, y, gameInfo, nextCell) {
-    if (x < 0 || x > 9 || y < 0 || y > 9)
+    if (x < 0 || x >= ShipField.FIELD_SIZE || y < 0 || y >= ShipField.FIELD_SIZE) {
         return true;
+    }
     
     let cell = gameInfo[x][y];
     if (!cell.ship || cell.sunken) {

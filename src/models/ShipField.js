@@ -15,8 +15,10 @@ class ShipField {
         { length: 1, amount: 4 }
     ])
 
+    static FIELD_SIZE = 10;
+
     constructor() {
-        this.shipCells = createSquareMatrix(10, false);
+        this.shipCells = createSquareMatrix(ShipField.FIELD_SIZE, false);
         this.#createShips();
     }
     
@@ -27,9 +29,15 @@ class ShipField {
                 let coordinates;
                 while (true) {
                     if (isShipHorizontal) {
-                        coordinates = {x: getRandomInt(0, 10 - ship.length), y: getRandomInt(0, 9)}
+                        coordinates = {
+                            x: getRandomInt(0, ShipField.FIELD_SIZE - ship.length), 
+                            y: getRandomInt(0, ShipField.FIELD_SIZE - 1)
+                        }
                     } else {
-                        coordinates = {x: getRandomInt(0, 9), y: getRandomInt(0, 10 - ship.length)}
+                        coordinates = {
+                            x: getRandomInt(0, ShipField.FIELD_SIZE - 1), 
+                            y: getRandomInt(0, ShipField.FIELD_SIZE - ship.length)
+                        }
                     }
                     if (this.canPlaceShip(coordinates.x, coordinates.y, ship.length, isShipHorizontal)) {
                         this.placeShip(coordinates.x, coordinates.y, ship.length, isShipHorizontal);
@@ -79,8 +87,8 @@ class ShipField {
     }
 
     hasShip(x, y) {
-        if (x < 0 || x > 9 
-            || y < 0 || y > 9) {
+        if (x < 0 || x >= ShipField.FIELD_SIZE 
+            || y < 0 || y >= ShipField.FIELD_SIZE) {
                 return false;
         }
         return this.shipCells[x][y];

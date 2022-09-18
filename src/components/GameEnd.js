@@ -1,5 +1,9 @@
 import '../styles/GameEnd.css'
 
+/**
+ * React-component to show player winner name after game ends
+ * @param {*} props - expects restart() function to restart game
+ */
 function GameEnd(props) {
     return (
         <div className="game-end">

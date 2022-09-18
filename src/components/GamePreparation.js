@@ -12,8 +12,8 @@ function GamePreparation(props) {
     const enemyNameInput = useInput('');
     const [isStartPressed, setStartPressed] = useState(false);
 
-    const defaultPlayerName = 'Люк';
-    const defaultEnemyName = 'C-ЗPO';
+    const defaultPlayerName = 'Джон Коннор';
+    const defaultEnemyName = 'Скайнет';
 
     const onStartPressed = () => {
         setStartPressed(true);

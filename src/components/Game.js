@@ -27,7 +27,6 @@ function Game(props) {
             let timeout = setTimeout(() => {
                 let enemyShot = getShootCoordinates(playerField.gameInfo);
                 if(!playerField.shoot(enemyShot.x, enemyShot.y)) {
-                    enemyShot = getShootCoordinates(playerField.gameInfo);
                     setPlayerTurn(true);
                 }
             }, delay)
@@ -68,7 +67,7 @@ function Game(props) {
             </div>
             <div className="fields-list">
                 <div>
-                    {/* We check AIThinkingCheckbox to prevent enemy name flashing when AI makes a move */}
+                    {/* We check AIThinkingCheckbox to prevent enemy name flashing when AI makes a move without delay */}
                     <p className={(isPlayerTurn || !AIThinkingCheckbox.value) ? 'active-turn' : ''}> {props.playerName} </p>
                     <GameField field={playerField.gameInfo} cellsHidden={false}/>
                 </div>

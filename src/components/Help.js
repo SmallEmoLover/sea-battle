@@ -2,6 +2,7 @@ import PlayerCell from "./PlayerCell";
 import '../styles/Help.css'
 
 /**
+ * React-component to show help to the player
  * @param {*} props - set visible to true to show help.
  * Specify function to close component in closeHelp() prop 
  */
