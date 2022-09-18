@@ -13,15 +13,15 @@
 }
 
 .preparation-block input {
-    min-width: 40%;
+    margin: 10px;
+    max-width: 90%;
     height: 40px;
     font: inherit;
     font-size: 30px;
-    margin: 50px;
 }
 
 .preparation-block div {
-    margin: 0px 50px;
+    margin: 0px 10px;
     font-size: 50px;
 }
 
@@ -60,6 +60,8 @@
     display: flex;
     justify-content: space-evenly;
     border: 4px solid black;
+    flex-direction: column;
+    align-items: center;
 }
 
 @keyframes shrink {
@@ -72,7 +74,6 @@
 }
 
 .player-name {
-    max-width: 35%;
     animation: fade-in 4s ease;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -88,5 +89,22 @@
     }
     75% {
         color: inherit;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .preparation-block input {
+        min-width: 40%;
+        margin: 50px;
+    }
+    .versus-label {
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+    .player-name {
+        max-width: 35%;
+    }
+    .preparation-block div {
+        margin: 0px 50px;
     }
 }
