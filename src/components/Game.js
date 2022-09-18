@@ -2,7 +2,8 @@ import useGameField from "../hooks/useGameField";
 import GameField from "./GameField";
 import '../styles/Game.css'
 import { getShootCoordinates } from "../models/EnemyAi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useInput from "../hooks/useInput";
 
 /**
  * React-component representing main game window
@@ -12,6 +13,25 @@ function Game(props) {
     const playerField = useGameField();
     const enemyField = useGameField();
     const [isPlayerTurn, setPlayerTurn] = useState(true);
+    const AIThinkingCheckbox = useInput(false);
+
+    useEffect(() => {
+        if (!isPlayerTurn) {
+            let delay = 2000;
+            if (AIThinkingCheckbox.value) {
+                delay = 0;
+            }
+            let timeout = setTimeout(() => {
+                let enemyShot = getShootCoordinates(playerField.gameInfo);
+                if(!playerField.shoot(enemyShot.x, enemyShot.y)) {
+                    enemyShot = getShootCoordinates(playerField.gameInfo);
+                    setPlayerTurn(true);
+                }
+            }, delay)
+            // Without timeout clearing toggling checkbox will cause multiple enemy turns
+            return () => clearTimeout(timeout);
+        }
+    }, [isPlayerTurn, playerField, AIThinkingCheckbox.value])
 
     if (playerField.shipsAlive === 0) {
         return <div> Вы проиграли </div>
@@ -22,17 +42,12 @@ function Game(props) {
     }
 
     const onPlayerShoot = (x, y) => {
+        if (!isPlayerTurn) {
+            return;
+        }
         if (!enemyField.shoot(x, y)) {
             setPlayerTurn(false);
         }
-    }
-
-    if (!isPlayerTurn) {
-        let enemyShot = getShootCoordinates(playerField.gameInfo);
-        while (playerField.shoot(enemyShot.x, enemyShot.y)) {
-            enemyShot = getShootCoordinates(playerField.gameInfo);
-        }
-        setPlayerTurn(true);
     }
 
     return (
@@ -41,6 +56,8 @@ function Game(props) {
                 <div> <b> {props.playerName} vs. {props.enemyName} </b> </div>
                 <div> Осталось клеток с кораблями: </div>
                 <div> {playerField.shipsAlive} : {enemyField.shipsAlive} </div>
+                <input type='checkbox' checked={AIThinkingCheckbox.value} onChange={AIThinkingCheckbox.onChange}/>
+                Противник отвечает мгновенно
             </div>
             <div className="fields-list">
                 <GameField field={playerField.gameInfo} cellsHidden={false}/>

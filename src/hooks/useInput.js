@@ -9,7 +9,12 @@ import { useState } from "react";
 function useInput(initial='') {
     const [value, setValue] = useState(initial);
     const onChange = (event) => {
-        setValue(event.target.value);
+        const target = event.target;
+        if (target.type === 'checkbox') {
+            setValue(target.checked);
+        } else {
+            setValue(target.value);
+        }
     };
 
     return {value, onChange};
