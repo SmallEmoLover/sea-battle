@@ -4,6 +4,7 @@ import '../styles/Game.css'
 import { getShootCoordinates } from "../models/EnemyAi";
 import { useEffect, useState } from "react";
 import useInput from "../hooks/useInput";
+import GameEnd from "./GameEnd";
 
 /**
  * React-component representing main game window
@@ -34,11 +35,11 @@ function Game(props) {
     }, [isPlayerTurn, playerField, AIThinkingCheckbox.value])
 
     if (playerField.shipsAlive === 0) {
-        return <div> Вы проиграли </div>
+        return <GameEnd winner={props.enemyName} restart={props.restart}/>
     }
 
     if (enemyField.shipsAlive === 0) {
-        return <div> Вы выиграли </div>
+        return <GameEnd winner={props.playerName} restart={props.restart}/>
     }
 
     const onPlayerShoot = (x, y) => {

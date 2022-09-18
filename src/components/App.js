@@ -12,7 +12,7 @@ function App() {
     if (isGameRunning) {
         return (
             <div className="App">
-                <Game playerName={playerName} enemyName={enemyName}/>
+                <Game playerName={playerName} enemyName={enemyName} restart={() => {setGameRunning(false);}}/>
             </div>
         )
     } else {
