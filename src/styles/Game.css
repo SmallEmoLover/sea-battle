@@ -1,5 +1,17 @@
+.game {
+    background-color: #282828;
+    font-size: 40px;
+    min-height: 100vh;
+}
+
+.information-panel {
+    background-color: #EBF2FA;
+    border-bottom: solid black 4px;
+    padding: 50px;
+}
+
 .fields-list {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     flex-wrap: wrap;
 }

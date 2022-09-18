@@ -14,13 +14,21 @@ function EnemyCell(props) {
         onClick = () => {}
 
         if (props.status.ship) {
-            status = 'hit';
+            status = 'enemy-hit';
         } else {
             status = 'miss';
         }
     }
 
-    return <div onClick={() => onClick()} className={`cell ${status}`}></div>
+    return (
+        /*
+            Click-area is a div around an actual cell, that have no indents between siblings.
+            That improves user control experience (even if you click at gap between cells, event will be fired)
+        */
+        <div onClick={() => onClick()} className='click-area'>
+            <div className={`cell ${status}`}/>
+        </div>
+    )
 }
 
 export default EnemyCell;

@@ -1,20 +1,108 @@
-.cell {
-    width: 30px;
-    height: 30px;
-    border: 1px solid black;
+.click-area {
+    width: 32px;
+    height: 32px;
+    padding: 2px;
     display: inline-block;
-    margin: 1px;
+}
+
+.cell {
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
 }
 
 .ship {
-    background-color: green;
+    background-color: #f29b4a;
 }
 
-.hit {
-    background-color: red;
+.enemy-hit, .player-hit {
+    background-color: #EE4266;
 }
+
+.enemy-hit {
+    animation-name: hit-height, enemy-hit-color;
+    animation-duration: 2s, 2s;
+    animation-timing-function: ease, steps(1, end);
+}
+
+.player-hit {
+    animation-name: hit-height, player-hit-color;
+    animation-duration: 2s, 2s;
+    animation-timing-function: ease, steps(1, end);
+}
+
+@keyframes hit-height {
+    0% {
+        height: 100%;
+    }
+    50% {
+        height: 0%;
+    }
+    100% {
+        height: 100%;
+    }
+}
+
+@keyframes enemy-hit-color {
+    0% {
+        background-color: #758BFD;
+    }
+    50% {
+        background-color: #EE4266;
+    }
+}
+
+@keyframes player-hit-color {
+    0% {
+        background-color: #f29b4a;
+    }
+    50% {
+        background-color: #EE4266;
+    }
+}
+
 
 .miss {
-    background-color: gray;
+    background-color: #758BFD;
+    justify-content: center;
+    align-items: center;
+}
+
+.miss::after {
+    content: "";
+    position: relative;
+    display: block;
+    left: 25%;
+    top: 25%;
+    width: 50%;
+    height: 50%;
+    border-radius: 100%;
+    background-color: #282828;
+    animation: miss-hit 2s ease;
+}
+
+@keyframes miss-hit {
+    0% {
+        left: 15%;
+        top: 15%;
+        width: 70%;
+        height: 70%;
+    }
+    50% {
+        left: 31%;
+        top: 31%;
+        width: 38%;
+        height: 38%;
+    }
+    100% {
+        left: 25%;
+        top: 25%;
+        width: 50%;
+        height: 50%;
+    }
+}
+
+.empty {
+    background-color: #758BFD;
 }
 

@@ -12,7 +12,6 @@ function App() {
     if (isGameRunning) {
         return (
             <div className="App">
-                Морской бой
                 <Game playerName={playerName} enemyName={enemyName}/>
             </div>
         )

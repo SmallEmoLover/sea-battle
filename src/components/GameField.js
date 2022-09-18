@@ -1,5 +1,6 @@
 import EnemyCell from "./EnemyCell";
 import PlayerCell from "./PlayerCell";
+import '../styles/GameField.css';
 
 /**
  * React-component respresenting sea-battle game field

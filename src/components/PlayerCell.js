@@ -9,7 +9,7 @@ function PlayerCell(props) {
     let status = 'empty';
     if (props.status.ship) {
         if (props.status.shot) {
-            status = 'hit';
+            status = 'player-hit';
         } else {
             status = 'ship';
         }
@@ -19,7 +19,15 @@ function PlayerCell(props) {
         }
     }
 
-    return <div className={`cell ${status}`}></div>
+    return (
+        /*
+            Click-area is a div around an actual cell, that have no indents between siblings.
+            That improves user control experience (even if you click at gap between cells, event will be fired)
+        */
+        <div className='click-area'>
+            <div className={`cell ${status}`}/>
+        </div>
+    )
 }
 
 export default PlayerCell;

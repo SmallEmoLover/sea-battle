@@ -26,9 +26,12 @@ function Game(props) {
     }
 
     return (
-        <div>
-            <div> {props.playerName} vs. {props.enemyName} </div>
-            <div> {playerField.shipsAlive} {enemyField.shipsAlive} </div>
+        <div className="game">
+            <div className="information-panel">
+                <div> <b> {props.playerName} vs. {props.enemyName} </b> </div>
+                <div> Осталось клеток с кораблями: </div>
+                <div> {playerField.shipsAlive} : {enemyField.shipsAlive} </div>
+            </div>
             <div className="fields-list">
                 <GameField field={playerField.gameInfo} cellsHidden={false}/>
                 <GameField field={enemyField.gameInfo} onClick={onPlayerShoot} cellsHidden={true}/>
