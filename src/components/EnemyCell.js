@@ -12,11 +12,14 @@ function EnemyCell(props) {
     if (props.status.shot) {
         // To prevent player from shooting already stricken cell 
         onClick = () => {}
-
-        if (props.status.ship) {
-            status = 'enemy-hit';
-        } else {
-            status = 'miss';
+        if (props.status.sunken) {
+            status = 'sunken';
+        } else {   
+            if (props.status.ship) {
+                status = 'enemy-hit';
+            } else {
+                status = 'miss';
+            }
         }
     }
 

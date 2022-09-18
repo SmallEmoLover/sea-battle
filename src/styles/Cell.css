@@ -61,6 +61,21 @@
     }
 }
 
+.sunken {
+    background-color: #EE4266;
+    animation: sunken 2s ease;
+}
+
+@keyframes sunken {
+    0% {
+    }
+    50% {
+        transform: rotateY(90deg);
+    }
+    100% {
+    }
+}
+
 
 .miss {
     background-color: #758BFD;
@@ -68,7 +83,7 @@
     align-items: center;
 }
 
-.miss::after {
+.sunken::after, .miss::after {
     content: "";
     position: relative;
     display: block;
@@ -76,8 +91,11 @@
     top: 25%;
     width: 50%;
     height: 50%;
-    border-radius: 100%;
     background-color: #282828;
+}
+
+.miss::after {
+    border-radius: 100%;
     animation: miss-hit 2s ease;
 }
 

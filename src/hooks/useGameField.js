@@ -37,8 +37,55 @@ function useGameField() {
             gameInfo[i][j] = {ship: shipField.current.shipCells[i][j], shot: shotsField[i][j]};
         }
     }
+    findSunkenShips(gameInfo);
 
     return {gameInfo: gameInfo, shoot: shoot, shipsAlive: shipsAlive};
+}
+
+/**
+ * Iterates over game field and finds sunken (all sibling cells damaged) ships
+ */
+function findSunkenShips(gameInfo) {
+    for (let x = 0; x < gameInfo.length; x++) {
+        for (let y = 0; y < gameInfo[x].length; y++) {
+            let cell = gameInfo[x][y];
+            if (cell.ship && cell.shot) {
+                if (
+                    // Checks sibling cells to the right from current 
+                    checkSunkenCells(x + 1, y, gameInfo, (x, y) => { return { x: x + 1, y: y} }) &&
+                    // To the left 
+                    checkSunkenCells(x - 1, y, gameInfo, (x, y) => { return { x: x - 1, y: y} }) &&
+                    // Above 
+                    checkSunkenCells(x, y + 1, gameInfo, (x, y) => { return { x: x, y: y + 1} }) &&
+                    // Under 
+                    checkSunkenCells(x, y - 1, gameInfo, (x, y) => { return { x: x, y: y - 1} })
+                ) {
+                    cell.sunken = true;
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Checks sunken cells, finding siblings by specified function
+ * @param {*} nextCell(x, y) => {x, y} function to generate next cell to check
+ * @returns 
+ */
+function checkSunkenCells(x, y, gameInfo, nextCell) {
+    if (x < 0 || x > 9 || y < 0 || y > 9)
+        return true;
+    
+    let cell = gameInfo[x][y];
+    if (!cell.ship || cell.sunken) {
+        return true;
+    }
+    if (cell.shot) {
+        let coordinates = nextCell(x, y);
+        return checkSunkenCells(coordinates.x, coordinates.y, gameInfo, nextCell);
+    }
+
+    return false;
 }
 
 export default useGameField;

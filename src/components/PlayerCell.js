@@ -7,7 +7,9 @@ import '../styles/Cell.css'
  */
 function PlayerCell(props) {
     let status = 'empty';
-    if (props.status.ship) {
+    if (props.status.sunken) {
+        status = 'sunken';
+    } else if (props.status.ship) {
         if (props.status.shot) {
             status = 'player-hit';
         } else {
