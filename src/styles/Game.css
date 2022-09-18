@@ -1,17 +1,34 @@
 .game {
     background-color: #282828;
-    font-size: 40px;
+    font-size: 25px;
     min-height: 100vh;
 }
 
 .information-panel {
     background-color: #EBF2FA;
     border-bottom: solid black 4px;
-    padding: 50px;
+    padding: 30px;
 }
 
 .fields-list {
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
+    color: #bfc5cc;
+}
+
+.fields-list p {
+    margin-top: 30px;
+    margin-bottom: 0px;
+    font-size: 40px;
+}
+
+.active-turn {
+    text-decoration: underline;
+    color: #EBF2FA;
+}
+
+h1 {
+    margin: 0px;
+    font-size: 40px;
 }

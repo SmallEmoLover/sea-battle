@@ -13,12 +13,12 @@ function Game(props) {
     const playerField = useGameField();
     const enemyField = useGameField();
     const [isPlayerTurn, setPlayerTurn] = useState(true);
-    const AIThinkingCheckbox = useInput(false);
+    const AIThinkingCheckbox = useInput(true);
 
     useEffect(() => {
         if (!isPlayerTurn) {
             let delay = 2000;
-            if (AIThinkingCheckbox.value) {
+            if (!AIThinkingCheckbox.value) {
                 delay = 0;
             }
             let timeout = setTimeout(() => {
@@ -53,15 +53,24 @@ function Game(props) {
     return (
         <div className="game">
             <div className="information-panel">
-                <div> <b> {props.playerName} vs. {props.enemyName} </b> </div>
+                <h1> {props.playerName} vs. {props.enemyName} </h1>
+                <div>
+                    <input type='checkbox' checked={AIThinkingCheckbox.value} onChange={AIThinkingCheckbox.onChange}/>
+                    Задержка перед ходом противника
+                </div>
                 <div> Осталось клеток с кораблями: </div>
                 <div> {playerField.shipsAlive} : {enemyField.shipsAlive} </div>
-                <input type='checkbox' checked={AIThinkingCheckbox.value} onChange={AIThinkingCheckbox.onChange}/>
-                Противник отвечает мгновенно
+                
             </div>
             <div className="fields-list">
-                <GameField field={playerField.gameInfo} cellsHidden={false}/>
-                <GameField field={enemyField.gameInfo} onClick={onPlayerShoot} cellsHidden={true}/>
+                <div>
+                    <p className={isPlayerTurn ? 'active-turn' : ''}> {props.playerName} </p>
+                    <GameField field={playerField.gameInfo} cellsHidden={false}/>
+                </div>
+                <div>
+                    <p className={!isPlayerTurn ? 'active-turn' : ''}> {props.enemyName} </p>
+                    <GameField field={enemyField.gameInfo} onClick={onPlayerShoot} cellsHidden={true}/>
+                </div>
             </div>
         </div>
     )
