@@ -10,16 +10,25 @@ function useGameField() {
         0
         ))
 
+    /**
+     * Shoots to specified coordinates
+     * @param {*} x 
+     * @param {*} y 
+     * @returns true, if the shot hits the ship, otherwise - false
+     */
     const shoot = (x, y) => {
-        if (shipField.current.shipCells[x][y]) {
-            setShipsAlive((state) => state - 1);
-        }
-
         setShotsField((state) => {
             let newState = copyMatrix(state);
             newState[x][y] = true;
             return newState;
         });
+
+        if (shipField.current.shipCells[x][y]) {
+            setShipsAlive((state) => state - 1);
+            return true;
+        }
+
+        return false;
     }
 
     const gameInfo = createSquareMatrix(10, null);

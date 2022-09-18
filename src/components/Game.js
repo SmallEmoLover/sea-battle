@@ -2,6 +2,7 @@ import useGameField from "../hooks/useGameField";
 import GameField from "./GameField";
 import '../styles/Game.css'
 import { getShootCoordinates } from "../models/EnemyAi";
+import { useState } from "react";
 
 /**
  * React-component representing main game window
@@ -10,6 +11,7 @@ import { getShootCoordinates } from "../models/EnemyAi";
 function Game(props) {
     const playerField = useGameField();
     const enemyField = useGameField();
+    const [isPlayerTurn, setPlayerTurn] = useState(true);
 
     if (playerField.shipsAlive === 0) {
         return <div> Вы проиграли </div>
@@ -20,9 +22,17 @@ function Game(props) {
     }
 
     const onPlayerShoot = (x, y) => {
-        enemyField.shoot(x, y);
+        if (!enemyField.shoot(x, y)) {
+            setPlayerTurn(false);
+        }
+    }
+
+    if (!isPlayerTurn) {
         let enemyShot = getShootCoordinates(playerField.gameInfo);
-        playerField.shoot(enemyShot.x, enemyShot.y);
+        while (playerField.shoot(enemyShot.x, enemyShot.y)) {
+            enemyShot = getShootCoordinates(playerField.gameInfo);
+        }
+        setPlayerTurn(true);
     }
 
     return (
